@@ -1,4 +1,3 @@
-import React from "react";
 import CardHome from "../../Molecules/CardHome";
 import ImageBackground from '../../../assets/wallpaper-home-and-register-2.jpg';
 import { PageContainer, Image } from "./styles";

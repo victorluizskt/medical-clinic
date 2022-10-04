@@ -1,9 +1,13 @@
-import React from 'react';
-import InitialPage from '../src/common/components/Organisms/InitialPage'
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/Home';
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <InitialPage />
+    <Routes>
+      <Route path="/login" element={<LoginPage/>} />
+      <Route path="/home" element={<HomePage/>} />
+    </Routes>
   );
 }
 

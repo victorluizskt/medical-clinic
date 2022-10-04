@@ -13,8 +13,7 @@ export const Image = styled.img`
   height: 100%;
   max-width: 100%;
   position: fixed;
-  margin-top: -22px;
-  margin-left: -8px;
+  margin-top: -18px;
 `;
 
 export default null;
