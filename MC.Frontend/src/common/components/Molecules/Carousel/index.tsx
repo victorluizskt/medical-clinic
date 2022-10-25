@@ -14,22 +14,11 @@ function CarouselContainer() {
           className="d-block w-100"
           src={ClinicOne}
           alt="First slide"
+          width="100px"
         />
         <Carousel.Caption>
           <h3>São Paulo</h3>
           <p>Avenida Paulista, 411</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src={ClinicTwo}
-          alt="Second slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Belo Horizonte</h3>
-          <p>Avenida Afonso Pena, 200</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>

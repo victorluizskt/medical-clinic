@@ -10,7 +10,6 @@ import {
   PasswordRecover,
   PrivacyPolitic,
   PrivacyPoliticHref,
-  InputContainer,
 } from "./styles";
 
 function CardHome() {

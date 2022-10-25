@@ -16,9 +16,9 @@ function Header() {
   return (
     <HeaderContainer>
       <Image src={Logo} />
-      <ButtonHeader variant="text">Conheça nossas clinícas</ButtonHeader>
-      <ButtonHeader variant="text">Cadastrar novo endereço</ButtonHeader>
-      <ButtonHeader variant="text">Agendar consulta</ButtonHeader>
+      <ButtonHeader variant="text" href="/home">Conheça nossas clinícas</ButtonHeader>
+      <ButtonHeader variant="text" href="/registerAddress">Cadastrar novo endereço</ButtonHeader>
+      <ButtonHeader variant="text" href="/registerQuery">Agendar consulta</ButtonHeader>
       <UserLogged>SEJA BEM VINDO, Victor</UserLogged>
     </HeaderContainer>
   )
