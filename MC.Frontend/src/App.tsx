@@ -2,6 +2,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/Home';
 import RegisterQuery from './pages/RegisterQuery';
 import RegisterAddress from './pages/RegisterAddress';
+import RegisterUser from './pages/RegisterUser';
 import { Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Route path="/home" element={<HomePage/>} />
       <Route path="/registerAddress" element={<RegisterAddress/>} />
       <Route path="/registerQuery" element={<RegisterQuery/>} />
+      <Route path="/registerUser" element={<RegisterUser/>} />
     </Routes>
   );
 }

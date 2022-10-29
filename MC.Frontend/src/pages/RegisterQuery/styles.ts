@@ -14,6 +14,17 @@ export const FormContainer = styled.div`
   height: 550px;
 `;
 
+export const DatePickerContainer = styled.div`
+  input {
+    width: 300px;
+    height: 45px;
+    background: bottom;
+    text-align: center;
+    border: none;
+    border-style: groove !important;
+  }
+`;
+
 export const FormAlignItems = styled.div`
   margin-left: 48px;
   margin-top: 25px;

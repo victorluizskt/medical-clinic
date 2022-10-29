@@ -50,10 +50,11 @@ function CardHome() {
           Entrar
         </ButtonLoginWithRegister>
         <ButtonLoginWithRegister
-        variant="contained"
-        style={{marginTop: '20px'}}
-        >
-          Cadastrar
+          variant="contained"
+          style={{marginTop: '20px'}}
+          href="/registerUser"
+          >
+            Cadastrar
         </ButtonLoginWithRegister>
         <PrivacyPolitic>
           Ao acessar o portal, você está de acordo com a nossa

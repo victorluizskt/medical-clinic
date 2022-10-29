@@ -10,8 +10,8 @@ function RegisterAddress() {
       <Header />
       <Container>
       <FormContainer>
-        <span style={{fontSize: '18px', marginLeft: '50px'}}>Vamos cadastrar um novo endereço?</span>
         <FormAlignItems>
+        <span style={{fontSize: '18px'}}>Vamos cadastrar um novo endereço?</span>
         <Input
           label="CEP"
           marginTop="40px"
@@ -24,11 +24,6 @@ function RegisterAddress() {
         />
         <Input
           label="Estado"
-          marginTop="40px"
-          password={false}
-        />
-        <Input
-          label="Cidade"
           marginTop="40px"
           password={false}
         />
