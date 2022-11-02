@@ -10,6 +10,15 @@ create table pessoa  (
 	estado varchar(50),
 )
 
+create table base_enderecos  (
+	codigo int foreign key references pessoa(codigo),
+	cep_pessoa varchar(10),
+	logradouro varchar (50),
+	bairro varchar(50),
+	cidade varchar(50),
+	estado varchar(50),
+)
+
 create table funcionario (
 	data_contrato DATETIME,
 	salario decimal,
