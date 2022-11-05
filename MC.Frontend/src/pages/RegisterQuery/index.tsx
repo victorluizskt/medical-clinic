@@ -15,9 +15,13 @@ const repository = new Repository();
 function RegisterQuery() {
   const [specialty, setSpecialty] = useState<any[]>([]);
   const [doctor, setDoctor] = useState<any[]>([]);
+  const [hour, setHour] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('');
   const [selectedDoctor, setSelectedDoctor] = useState<string>('');
+  const [selectedHour, setSelectedHour] = useState<string>('');
+  const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
     const getSpecialty = async () => {
@@ -28,16 +32,36 @@ function RegisterQuery() {
   }, []);
 
   useEffect(() => {
-    const request = {
-      especialidade: selectedSpecialty,
-    }
+    if(selectedSpecialty !== '') {
+      const request = {
+        especialidade: selectedSpecialty,
+      }
 
-    const getSpecialty = async () => {
-      const data = await repository.getNameDoctor(request);
-      setDoctor(data);
+      const getSpecialty = async () => {
+        const data = await repository.getNameDoctor(request);
+        setDoctor(data);
+      }
+      getSpecialty();
     }
-    getSpecialty();
   }, [selectedSpecialty]);
+
+
+  useEffect(() => {
+    if(selectedDoctor !== '') {
+      const getDisponibleDoctor = async () => {
+        setLoading(true);
+        const request = {
+          nomeMedico: selectedDoctor,
+          dataAgendamento: startDate,
+        }
+        const hours = await repository.getDisponibleDoctor(request);
+        setHour(hours);
+        setLoading(false);
+      }
+
+      getDisponibleDoctor();
+    }
+  }, [startDate]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedSpecialty(event.target.value as string);
@@ -47,9 +71,34 @@ function RegisterQuery() {
     setSelectedDoctor(event.target.value as string);
   };
 
-  const [startDate, setStartDate] = useState(new Date());
-  console.log(startDate)
+  const handleChangeHour= (event: SelectChangeEvent) => {
+    setSelectedHour(event.target.value as string);
+  };
 
+  const handleAgendarConsulta = async () => {
+    const request = {
+      especialidade: selectedSpecialty,
+      nomeDoutor: selectedDoctor,
+      data: startDate,
+      horario: selectedHour,
+      codigoUsuario: localStorage.getItem("codigo"),
+      nomeUsuario: localStorage.getItem("nome"),
+      emailUsuario: localStorage.getItem("email"),
+      telefoneUsuario: localStorage.getItem("telefone")
+    }
+
+    const data = await repository.agendarConsulta(request);
+    if(data) {
+      alert("Consulta agendada com sucesso!")
+      setSelectedSpecialty('')
+      setSelectedDoctor('')
+      setSelectedHour('')
+    } else {
+      alert("Ocorreu um erro ao agendar a consulta.")
+    }
+  }
+
+  console.log(hour);
   return (
     <>
     <Header />
@@ -75,7 +124,7 @@ function RegisterQuery() {
                 value={selectedDoctor}
                 style={{width: '300px'}}
                 onChange={handleChangeDoctor}
-                disabled={selectedSpecialty === null}
+                disabled={selectedSpecialty === ''}
               >
                 {doctor !== null && doctor.map((item: string) => (
                   <MenuItem value={item}>{item}</MenuItem>
@@ -92,16 +141,19 @@ function RegisterQuery() {
               <InputLabel>Horário da consulta</InputLabel>
               <Select
                 style={{width: '300px'}}
-                onChange={handleChange}
+                onChange={handleChangeHour}
+                value={selectedHour}
+                disabled={selectedDoctor === '' || loading}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {hour && hour.map((item: string) => (
+                  <MenuItem value={item}>{item}</MenuItem>
+                ))}
               </Select>
           </FormControl>
           <Button
             variant="contained"
             style={{marginTop: '33px'}}
+            onClick={handleAgendarConsulta}
           >
             Agendar consulta
           </Button>

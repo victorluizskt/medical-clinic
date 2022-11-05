@@ -39,13 +39,17 @@ function CardHome() {
     } else if(tipoUsuario === "P") {
       const {
         codigo,
-        tipoUsario,
+        tipoUsuario,
         nome,
+        email,
+        telefone
       } = data;
 
       localStorage.setItem("codigo", codigo);
-      localStorage.setItem("tipoUsario", tipoUsario);
+      localStorage.setItem("tipoUsuario", tipoUsuario);
       localStorage.setItem("nome", nome);
+      localStorage.setItem("email", email);
+      localStorage.setItem("telefone", telefone);
 
       return navigate('/home');
     }

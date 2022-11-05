@@ -46,13 +46,6 @@ namespace MC.MedicalClinic.Controllers
             return BadRequest("Não foi possível verificar o usuário");
         }
 
-        [HttpGet("cadastrarUsuario")]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetCadastrarUsuario()
-        {
-            return Ok("Cadastrado com sucesso");
-        }
-
         [HttpPost("registerAddressPatient")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(bool))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -111,10 +104,19 @@ namespace MC.MedicalClinic.Controllers
         public string PEGAR_TIPO_USUARIO = "" +
             "SELECT codigo as Codigo, email as Email, tipo_usuario as TipoUsuario " +
             "FROM pessoa WHERE email = @email";
-        public string PEGAR_PACIENTE = "" +
-            "SELECT  p.codigo as Codigo, p.nome as Nome, p.email as Email, pac.peso as Peso, pac.altura as Altura, pac.tipo_sanguineo as TipoSanguineo, p.tipo_usuario as TipoUsuario " +
-            "FROM pessoa p  inner join paciente pac on pac.codigo = p.codigo " +
-            "WHERE p.email = @email and pac.senha_hash = @senha_hash;";
+        public string PEGAR_PACIENTE = 
+            @"SELECT  
+                p.codigo as Codigo, 
+                p.nome as Nome, 
+                p.email as Email, 
+                pac.peso as Peso, 
+                pac.altura as Altura, 
+                pac.tipo_sanguineo as TipoSanguineo, 
+                p.tipo_usuario as TipoUsuario,
+                p.telefone as Telefone
+            FROM pessoa p  
+                inner join paciente pac on pac.codigo = p.codigo 
+            WHERE p.email = @email and pac.senha_hash = @senha_hash;";
 
         public string INSERIR_ENDERECO_USUARIO = @"
         INSERT INTO base_enderecos VALUES (@codigo, @cep_pessoa, @logradouro, @bairro, @cidade, @estado)

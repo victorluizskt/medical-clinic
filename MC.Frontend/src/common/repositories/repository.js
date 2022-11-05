@@ -36,4 +36,22 @@ export default class Repository {
       console.log(error);
     }
   }
+
+  getDisponibleDoctor = async (info) => {
+    try {
+      const { data } = await api.post("pegarHorarioDisponivelMedico", info);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  agendarConsulta = async (info) => {
+    try {
+      const { data } = await api.post("agendarConsulta", info);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
