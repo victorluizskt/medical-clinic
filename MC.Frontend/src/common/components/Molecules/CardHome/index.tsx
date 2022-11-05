@@ -16,13 +16,11 @@ import {
   PrivacyPoliticHref,
 } from "./styles";
 import {  useState } from "react";
-import MyContext from '../../../contexts/auth';
 
 const repository = new Repository();
 
 function CardHome() {
   const navigate = useNavigate();
-  const { paciente, setPaciente}: any = useContext(MyContext);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -41,23 +39,13 @@ function CardHome() {
     } else if(tipoUsuario === "P") {
       const {
         codigo,
-        email,
         tipoUsario,
         nome,
-        peso,
-        altura,
-        tipoSanguineo,
       } = data;
 
-      setPaciente({
-        codigo,
-        email,
-        tipoUsario,
-        nome,
-        peso,
-        altura,
-        tipoSanguineo,
-      })
+      localStorage.setItem("codigo", codigo);
+      localStorage.setItem("tipoUsario", tipoUsario);
+      localStorage.setItem("nome", nome);
 
       return navigate('/home');
     }

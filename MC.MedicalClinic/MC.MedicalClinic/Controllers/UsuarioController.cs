@@ -53,7 +53,39 @@ namespace MC.MedicalClinic.Controllers
             return Ok("Cadastrado com sucesso");
         }
 
+        [HttpPost("registerAddressPatient")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(bool))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> RegistrarEnderecoPessoa(
+            RegistrarEnderecoPaciente registrarEnderecoPaciente
+        )
+        {
+            if(registrarEnderecoPaciente != null)
+            {
+                var sucesso = await SalvarEnderecoSistema(registrarEnderecoPaciente);
+                if (sucesso) return Ok(true);
+                else return BadRequest(sucesso);
+            }
+
+            return BadRequest("Não foi possível salvar as informações.");
+        }
+
         #region Private 
+        private async Task<bool> SalvarEnderecoSistema(RegistrarEnderecoPaciente registrarEndereco)
+        {
+
+            using var connection = _db.CreateConnection();
+            DynamicParameters dynamicParameters = new();
+            dynamicParameters.Add("@cep_pessoa", registrarEndereco.Cep, DbType.String);
+            dynamicParameters.Add("@cidade", registrarEndereco.Cidade, DbType.String);
+            dynamicParameters.Add("@estado", registrarEndereco.Estado, DbType.String);
+            dynamicParameters.Add("@bairro", registrarEndereco.Bairro, DbType.String);
+            dynamicParameters.Add("@logradouro", registrarEndereco.Logradouro, DbType.String);
+            dynamicParameters.Add("@codigo", registrarEndereco.IdUser, DbType.Int32);
+
+            await connection.ExecuteAsync(INSERIR_ENDERECO_USUARIO, dynamicParameters);
+            return true;
+        }
         private async Task<Pessoa> PegarPessoaSistema(Login usuario)
         {
             using var connection = _db.CreateConnection();
@@ -83,6 +115,10 @@ namespace MC.MedicalClinic.Controllers
             "SELECT  p.codigo as Codigo, p.nome as Nome, p.email as Email, pac.peso as Peso, pac.altura as Altura, pac.tipo_sanguineo as TipoSanguineo, p.tipo_usuario as TipoUsuario " +
             "FROM pessoa p  inner join paciente pac on pac.codigo = p.codigo " +
             "WHERE p.email = @email and pac.senha_hash = @senha_hash;";
+
+        public string INSERIR_ENDERECO_USUARIO = @"
+        INSERT INTO base_enderecos VALUES (@codigo, @cep_pessoa, @logradouro, @bairro, @cidade, @estado)
+        ";
         #endregion
     }
 }

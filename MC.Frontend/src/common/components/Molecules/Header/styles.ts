@@ -21,6 +21,7 @@ export const UserLogged = styled.span`
   font-size: 14px;
   text-align: right;
   margin-right: 20px;
+  color: #1396ed;
 `;
 
 export default null;

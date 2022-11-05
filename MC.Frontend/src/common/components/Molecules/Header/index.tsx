@@ -19,7 +19,7 @@ function Header() {
       <ButtonHeader variant="text" href="/home">Conheça nossas clinícas</ButtonHeader>
       <ButtonHeader variant="text" href="/registerAddress">Cadastrar novo endereço</ButtonHeader>
       <ButtonHeader variant="text" href="/registerQuery">Agendar consulta</ButtonHeader>
-      <UserLogged>SEJA BEM VINDO, Victor</UserLogged>
+      <UserLogged>SEJA BEM VINDO, {localStorage.getItem("nome")}</UserLogged>
     </HeaderContainer>
   )
 }

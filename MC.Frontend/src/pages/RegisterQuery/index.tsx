@@ -1,20 +1,54 @@
 import Header from "../../common/components/Molecules/Header";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import Repository from '../../common/repositories/repository';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Container, FormContainer, FormAlignItems, DatePickerContainer }  from './styles';
 import Button from '@mui/material/Button';
 import DatePicker from "react-datepicker";
+
+const repository = new Repository();
+
 function RegisterQuery() {
-  const [age, setAge] = useState('');
+  const [specialty, setSpecialty] = useState<any[]>([]);
+  const [doctor, setDoctor] = useState<any[]>([]);
+
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string>('');
+  const [selectedDoctor, setSelectedDoctor] = useState<string>('');
+
+  useEffect(() => {
+    const getSpecialty = async () => {
+      const data = await repository.getSpecialty();
+      setSpecialty(data);
+    }
+    getSpecialty();
+  }, []);
+
+  useEffect(() => {
+    const request = {
+      especialidade: selectedSpecialty,
+    }
+
+    const getSpecialty = async () => {
+      const data = await repository.getNameDoctor(request);
+      setDoctor(data);
+    }
+    getSpecialty();
+  }, [selectedSpecialty]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setSelectedSpecialty(event.target.value as string);
   };
+
+  const handleChangeDoctor = (event: SelectChangeEvent) => {
+    setSelectedDoctor(event.target.value as string);
+  };
+
   const [startDate, setStartDate] = useState(new Date());
+  console.log(startDate)
 
   return (
     <>
@@ -26,25 +60,26 @@ function RegisterQuery() {
           <FormControl style={{marginTop: '15px', width: '315px'}} >
               <InputLabel>Especialidade</InputLabel>
               <Select
-                value={age}
+                disabled={specialty === null}
                 style={{width: '300px'}}
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {specialty !== null && specialty.map((item: string) => (
+                  <MenuItem value={item}>{item}</MenuItem>
+                ))}
               </Select>
           </FormControl>
           <FormControl style={{marginTop: '15px', width: '315px'}} >
               <InputLabel>Médico</InputLabel>
               <Select
-                value={age}
+                value={selectedDoctor}
                 style={{width: '300px'}}
-                onChange={handleChange}
+                onChange={handleChangeDoctor}
+                disabled={selectedSpecialty === null}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {doctor !== null && doctor.map((item: string) => (
+                  <MenuItem value={item}>{item}</MenuItem>
+                ))}
               </Select>
           </FormControl>
           <FormControl style={{marginTop: '15px', width: '315px'}} >
@@ -56,7 +91,6 @@ function RegisterQuery() {
           <FormControl style={{marginTop: '15px', width: '315px'}} >
               <InputLabel>Horário da consulta</InputLabel>
               <Select
-                value={age}
                 style={{width: '300px'}}
                 onChange={handleChange}
               >

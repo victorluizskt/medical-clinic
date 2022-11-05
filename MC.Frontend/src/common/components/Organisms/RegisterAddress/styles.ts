@@ -15,8 +15,8 @@ export const FormContainer = styled.div`
 `;
 
 export const FormAlignItems = styled.div`
-  margin-left: 48px;
-  margin-top: 25px;
+  display: grid;
+  padding: 24px 24px;
 `;
 
 export default null;
