@@ -7,7 +7,6 @@ function RegisterUser() {
     <PageContainer>
       <ImageTag src={ImageBackground} />
       <Card width="399px" height="599px">
-
       </Card>
     </PageContainer>
   )

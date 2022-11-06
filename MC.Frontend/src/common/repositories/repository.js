@@ -76,4 +76,41 @@ export default class Repository {
       console.log(error);
     }
   };
+
+  listagemFuncionarios = async () => {
+    try {
+      const { data } = await api.post("/listagemFuncionarios");
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  listagemPacientes = async () => {
+    try {
+      const { data } = await api.post("/listagemPacientes");
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  listagemEnderecoAuxiliares = async (infos) => {
+    try {
+      const { data } = await api.post("/listagemEnderecoAuxiliares");
+      return data;
+    } catch (error) {
+      alert("Não foi possível cadastrar o paciente.");
+      console.log(error);
+    }
+  };
+
+  listagemConsultas = async () => {
+    try {
+      const { data } = await api.post("/listagemConsultas");
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
