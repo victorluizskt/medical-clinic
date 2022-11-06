@@ -54,7 +54,7 @@ function RegistrarFuncionario() {
     }
 
     if(request.cep !== '' && request.cidade !== '' && request.estado !== '' && request.bairro !== '' && request.logradouro !== '') {
-      const data = await repository.registrarfuncionario(request);
+      const data = await repository.registrarFuncionario(request);
       if(data) {
         alert("funcionario registrado com sucesso");
         setFuncionario({
