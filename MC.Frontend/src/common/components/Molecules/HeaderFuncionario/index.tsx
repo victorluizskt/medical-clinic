@@ -16,7 +16,7 @@ function HeaderFuncionario() {
   return (
     <HeaderContainer>
       <Image src={Logo} />
-      <ButtonHeader variant="text" href="/homeFuncionario">Cadastrar Funcionario</ButtonHeader>
+      <ButtonHeader variant="text" href="/registrarFuncionario">Cadastrar Funcionario</ButtonHeader>
       <ButtonHeader variant="text" href="/registrarPaciente">Cadastrar Paciente</ButtonHeader>
       <ButtonHeader variant="text" href="/listarDados">Listar Dados</ButtonHeader>
       <UserLogged>SEJA BEM VINDO, {localStorage.getItem("nome")}</UserLogged>
