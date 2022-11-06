@@ -6,6 +6,7 @@ export default class Repository {
       const { data } = await api.post("/login", infos);
       return data;
     } catch (error) {
+      alert("Usuário não encontrado.");
       console.log(error);
     }
   };
@@ -54,4 +55,14 @@ export default class Repository {
       console.log(error);
     }
   }
+
+  registrarPaciente = async (infos) => {
+    try {
+      const { data } = await api.post("/registrarPaciente", infos);
+      return data;
+    } catch (error) {
+      alert("Usuário não encontrado.");
+      console.log(error);
+    }
+  };
 }

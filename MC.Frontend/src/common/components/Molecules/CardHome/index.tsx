@@ -33,10 +33,10 @@ function CardHome() {
     }
 
     const data = await repository.checkUser(request);
+    console.log(data);
     const {tipoUsuario} = data;
-    if(data === undefined) {
-      alert("Usuário não encontrado.");
-    } else if(tipoUsuario === "P") {
+
+    if(tipoUsuario === "P") {
       const {
         codigo,
         tipoUsuario,
@@ -53,6 +53,12 @@ function CardHome() {
 
       return navigate('/home');
     }
+
+    if(true) {
+      return navigate('/homeFuncionario')
+    }
+
+    alert("Usuário não encontrado.");
   }
 
   const ButtonLoginWithRegister = styled(Button)<ButtonProps>(({ theme }) => ({

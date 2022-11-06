@@ -4,7 +4,8 @@ import RegisterQuery from './pages/RegisterQuery';
 import RegisterAddress from './pages/RegisterAddress';
 import RegisterUser from './pages/RegisterUser';
 import { Routes, Route } from 'react-router-dom'
-import { useState } from 'react';
+import HomeFuncionario from './pages/HomeFuncionario';
+import RegistrarPacientePage from './pages/RegistrarPacientePage';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Route path="/registerAddress" element={<RegisterAddress/>} />
         <Route path="/registerQuery" element={<RegisterQuery/>} />
         <Route path="/registerUser" element={<RegisterUser/>} />
+        <Route path="/homeFuncionario" element={<HomeFuncionario/>} />
+        <Route path="/registrarPaciente" element={<RegistrarPacientePage/>} />
       </Routes>
   );
 }
