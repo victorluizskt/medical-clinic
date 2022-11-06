@@ -84,7 +84,7 @@ function RegistrarFuncionario() {
       <HeaderFuncionario />
       <Container>
       <FormContainer>
-        <span style={{fontSize: '18px', marginLeft: '200px', marginTop: '20px'}}>Cadastrar funcionario</span>
+        <span style={{fontSize: '18px', fontWeight: 'bold', marginLeft: '200px', marginTop: '20px'}}>Cadastrar funcionario</span>
         <FormAlignItems>
         <TextField
           label="Nome"
@@ -177,14 +177,14 @@ function RegistrarFuncionario() {
             />
           </>
         )}
+        </FormAlignItems>
         <Button
           variant="contained"
-          style={{marginTop: '25px'}}
+          style={{marginLeft: '180px', width: '250px'}}
           onClick={handleChangeRequest}
         >
           Cadastrar
         </Button>
-        </FormAlignItems>
       </FormContainer>
       </Container>
     </>

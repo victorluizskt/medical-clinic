@@ -39,8 +39,6 @@ function RegistrarPaciente() {
       senhaHash: paciente.senhaHash
     }
 
-    console.log(request)
-
     if(request.cep !== '' && request.cidade !== '' && request.estado !== '' && request.bairro !== '' && request.logradouro !== '') {
       const data = await repository.registrarPaciente(request);
       if(data) {
@@ -72,11 +70,11 @@ function RegistrarPaciente() {
       <HeaderFuncionario />
       <Container>
       <FormContainer>
+        <span style={{fontSize: '18px', fontWeight: 'bold', marginLeft: '200px'}}>Cadastrar Paciente</span>
         <FormAlignItems>
-        <span style={{fontSize: '18px', marginLeft: '100px'}}>Cadastrar Paciente</span>
         <TextField
           label="Nome"
-          style={{marginTop: '14px'}}
+          style={{marginTop: '14px', marginRight: '15px'}}
           value={paciente.nome}
           onChange={(event) => setPaciente({...paciente, nome: event.target.value})}
         />
@@ -89,7 +87,7 @@ function RegistrarPaciente() {
         <TextField
           label="Senha"
           value={paciente.senhaHash}
-          style={{marginTop: '14px'}}
+          style={{marginTop: '14px', marginRight: '15px'}}
           onChange={(event) => setPaciente({...paciente, senhaHash: event.target.value})}
         />
         <TextField
@@ -101,7 +99,7 @@ function RegistrarPaciente() {
         <TextField
           label="CEP"
           value={paciente.cep}
-          style={{marginTop: '14px'}}
+          style={{marginTop: '14px', marginRight: '15px'}}
           onChange={(event) => setPaciente({...paciente, cep: event.target.value})}
         />
         <TextField
@@ -113,7 +111,7 @@ function RegistrarPaciente() {
         <TextField
           label="Logradouro"
           value={paciente.logradouro}
-          style={{marginTop: '14px'}}
+          style={{marginTop: '14px', marginRight: '15px'}}
           onChange={(event) => setPaciente({...paciente, logradouro: event.target.value})}
         />
         <TextField
@@ -125,7 +123,7 @@ function RegistrarPaciente() {
         <TextField
           label="Cidade"
           value={paciente.cidade}
-          style={{marginTop: '14px'}}
+          style={{marginTop: '14px', marginRight: '15px'}}
           onChange={(event) => setPaciente({...paciente, cidade: event.target.value})}
         />
         <TextField
@@ -137,7 +135,7 @@ function RegistrarPaciente() {
         <TextField
           label="Altura"
           value={paciente.altura}
-          style={{marginTop: '14px'}}
+          style={{marginTop: '14px', marginRight: '15px'}}
           onChange={(event) => setPaciente({...paciente, altura: event.target.value})}
         />
         <TextField
@@ -146,14 +144,14 @@ function RegistrarPaciente() {
           style={{marginTop: '14px'}}
           onChange={(event) => setPaciente({...paciente, tipoSanguineo: event.target.value})}
         />
+        </FormAlignItems>
         <Button
           variant="contained"
-          style={{marginTop: '33px'}}
+          style={{marginLeft: '180px', width: '250px'}}
           onClick={handleChangeRequest}
         >
           Cadastrar
         </Button>
-        </FormAlignItems>
       </FormContainer>
       </Container>
     </>

@@ -12,11 +12,12 @@ export const FormContainer = styled.div`
   background-color: #EBF9FF;
   width: 620px;
   height: 670px;
+  padding: 24px 0px 0px 0px;
 `;
 
 export const FormAlignItems = styled.div`
   display: grid;
-  padding: 24px 24px;
+  padding: 24px 0px 24px 40px;
   grid-template-columns: 270px 270px;
 `;
 
