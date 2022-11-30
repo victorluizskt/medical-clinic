@@ -66,17 +66,6 @@ export default class Repository {
     }
   }
 
-
-  registrarPaciente = async (infos) => {
-    try {
-      const { data } = await api.post("/registrarPaciente", infos);
-      return data;
-    } catch (error) {
-      alert("Não foi possível cadastrar o paciente.");
-      console.log(error);
-    }
-  };
-
   listagemFuncionarios = async () => {
     try {
       const { data } = await api.post("/listagemFuncionarios");

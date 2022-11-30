@@ -14,5 +14,9 @@
         public string SenhaHash { get; set; }
         public string Telefone { get; set; }
         public string TipoSanguineo { get; set; }
+        public DateTime? DataContrato { get; set; }
+        public string? Salario { get; set; }
+        public string? Especialidade { get; set; }
+        public string? CRM { get; set; }
     }
 }

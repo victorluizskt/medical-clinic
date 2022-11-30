@@ -10,67 +10,41 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const repository = new Repository();
+interface Pessoa {
+  nome: string,
+  email: string,
+  tipo_sanguineo: string,
+  telefone: string,
+  peso: string
+}
+
+
+interface Funcionario {
+  nome: string,
+  email: string,
+  telefone: string,
+  data_contrato: string,
+  salario: string,
+}
 
 function ListarDadosPage() {
-
-  const [listagemFuncionarios, setListagemFuncionarios] = useState<any[]>([]);
-  const [listagemPacientes, setListagemPacientes] = useState<any[]>([]);
-  const [listagemEnderecosAuxiliares, setListagemEnderecosAuxiliares] = useState<any[]>([]);
-  const [listagemConsultas, setListagemConsultas] = useState<any[]>([]);
-
+  const [paciente, setPaciente] = useState<Array<Pessoa>>()
+  const [funcionario, setFuncionario] = useState<Array<Funcionario>>()
   useEffect(() => {
-    const salvarListagens = async () => {
-      const listagemFun = await repository.listagemFuncionarios();
-      const listagemPac = await repository.listagemFuncionarios();
-      const listagemEndAux = await repository.listagemEnderecoAuxiliares();
-      const listagemCons = await repository.listagemConsultas();
-
-      setListagemFuncionarios(listagemFun);
-      setListagemPacientes(listagemPac);
-      setListagemEnderecosAuxiliares(listagemEndAux);
-      setListagemConsultas(listagemCons);
+    const fetchData = async () => {
+      const dadosPaciente = await repository.listagemPacientes()
+      const dadosFuncionario = await repository.listagemFuncionarios()
+      setFuncionario(dadosFuncionario)
+      setPaciente(dadosPaciente)
     }
 
-    salvarListagens();
+    fetchData()
   }, [])
+
 
   return (
     <>
       <HeaderFuncionario />
-      <div style={{display: 'grid', gridTemplateColumns:'700px 700px', alignItems: 'center', marginLeft: '200px'}}>
-        <div style={{width: '700px', marginTop: '20px'}}>
-          <span style={{fontWeight: 'bold'}}>Listagem funcionários cadastrados</span>
-          <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Nome Funcionario</TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Salario</TableCell>
-                <TableCell align="right">Telefone</TableCell>
-                <TableCell align="right">Inicio Contrato</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {listagemFuncionarios.map((listagemFuncionarios) => (
-                <TableRow
-                  key={listagemFuncionarios.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {listagemFuncionarios.name}
-                  </TableCell>
-                  <TableCell align="right">{listagemFuncionarios.email}</TableCell>
-                  <TableCell align="right">{listagemFuncionarios.salario}</TableCell>
-                  <TableCell align="right">{listagemFuncionarios.telefone}</TableCell>
-                  <TableCell align="right">{listagemFuncionarios.inicioContrato}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-
       <div style={{width: '700px', marginTop: '20px', marginLeft: '50px'}}>
           <span style={{fontWeight: 'bold'}}>Listagem pacientes cadastrados</span>
           <TableContainer component={Paper}>
@@ -78,58 +52,25 @@ function ListarDadosPage() {
             <TableHead>
               <TableRow>
                 <TableCell>Nome Paciente</TableCell>
+                <TableCell align="right">Email</TableCell>
                 <TableCell align="right">Telefone</TableCell>
-                <TableCell align="right">Altura</TableCell>
                 <TableCell align="right">Tipo sanguineo</TableCell>
                 <TableCell align="right">Peso</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {listagemPacientes.map((listagemPacientes) => (
+              {paciente && paciente.map((row) => (
                 <TableRow
-                  key={listagemPacientes.name}
+                  key={row.nome}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {listagemPacientes.name}
+                    {row.nome}
                   </TableCell>
-                  <TableCell align="right">{listagemPacientes.telefone}</TableCell>
-                  <TableCell align="right">{listagemPacientes.altura}</TableCell>
-                  <TableCell align="right">{listagemPacientes.tipoSanguineo}</TableCell>
-                  <TableCell align="right">{listagemPacientes.peso}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-
-      <div style={{width: '700px', marginTop: '20px'}}>
-          <span style={{fontWeight: 'bold'}}>Listagem endereços auxiliares cadastrados</span>
-          <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Cidade</TableCell>
-                <TableCell align="right">Estado</TableCell>
-                <TableCell align="right">Rua</TableCell>
-                <TableCell align="right">CEP</TableCell>
-                <TableCell align="right">Logradouro</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {listagemEnderecosAuxiliares.map((listagemEnderecosAuxiliares) => (
-                <TableRow
-                  key={listagemEnderecosAuxiliares.cidade}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {listagemEnderecosAuxiliares.cidade}
-                  </TableCell>
-                  <TableCell align="right">{listagemEnderecosAuxiliares.estado}</TableCell>
-                  <TableCell align="right">{listagemEnderecosAuxiliares.rua}</TableCell>
-                  <TableCell align="right">{listagemEnderecosAuxiliares.cep}</TableCell>
-                  <TableCell align="right">{listagemEnderecosAuxiliares.logradouro}</TableCell>
+                  <TableCell align="right">{row.email}</TableCell>
+                  <TableCell align="right">{row.telefone}</TableCell>
+                  <TableCell align="right">{row.tipo_sanguineo}</TableCell>
+                  <TableCell align="right">{row.peso}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -138,38 +79,37 @@ function ListarDadosPage() {
       </div>
 
       <div style={{width: '700px', marginTop: '20px', marginLeft: '50px'}}>
-          <span style={{fontWeight: 'bold'}}>Listagem agendamento consulta</span>
+          <span style={{fontWeight: 'bold'}}>Listagem funcionarios cadastrados</span>
           <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCell>Paciente</TableCell>
-                <TableCell align="right">Horario agendado</TableCell>
-                <TableCell align="right">Idade</TableCell>
-                <TableCell align="right">Altura</TableCell>
-                <TableCell align="right">Peso</TableCell>
+                <TableCell>Nome Funcionario</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">Telefone</TableCell>
+                <TableCell align="right">Data Contrato</TableCell>
+                <TableCell align="right">Salario</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {listagemConsultas.map((listagemConsultas) => (
+              {funcionario && funcionario.map((row) => (
                 <TableRow
-                  key={listagemConsultas.nome}
+                  key={row.nome}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {listagemConsultas.nome}
+                    {row.nome}
                   </TableCell>
-                  <TableCell align="right">{listagemConsultas.horarioAgendado}</TableCell>
-                  <TableCell align="right">{listagemConsultas.idade}</TableCell>
-                  <TableCell align="right">{listagemConsultas.altura}</TableCell>
-                  <TableCell align="right">{listagemConsultas.peso}</TableCell>
+                  <TableCell align="right">{row.email}</TableCell>
+                  <TableCell align="right">{row.telefone}</TableCell>
+                  <TableCell align="right">{row.data_contrato}</TableCell>
+                  <TableCell align="right">{row.salario}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       </div>
-    </div>
     </>
   )
 }

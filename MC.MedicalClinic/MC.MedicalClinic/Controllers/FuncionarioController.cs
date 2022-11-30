@@ -15,6 +15,34 @@ namespace MC.MedicalClinic.Controllers
             _db = dbSession;
         }
 
+        [HttpPost("registrarFuncionario")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<string>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> RegistrarFuncionario(
+            [FromBody] RegistrarPaciente registrarPaciente
+        )
+        {
+            using var connection = _db.CreateConnection();
+            DynamicParameters dynamicParameters = new();
+            dynamicParameters.Add("@nome", registrarPaciente.Nome, DbType.String);
+            dynamicParameters.Add("@email", registrarPaciente.Email, DbType.String);
+            dynamicParameters.Add("@telefone", registrarPaciente.Telefone, DbType.String);
+            dynamicParameters.Add("@cep_pessoa", registrarPaciente.Cep, DbType.String);
+            dynamicParameters.Add("@logradouro", registrarPaciente.Logradouro, DbType.String);
+            dynamicParameters.Add("@bairro", registrarPaciente.Bairro, DbType.String);
+            dynamicParameters.Add("@cidade", registrarPaciente.Cidade, DbType.String);
+            dynamicParameters.Add("@estado", registrarPaciente.Estado, DbType.String);
+            dynamicParameters.Add("@tipo_usuario", "M", DbType.String);
+            connection.Execute(REGISTRAR_PACIENTE, dynamicParameters);
+            var idUser = connection.QueryFirstOrDefault<int>($"SELECT codigo FROM pessoa WHERE email = '{registrarPaciente.Email}'");
+            connection.Execute($"INSERT INTO funcionario VALUES ('{registrarPaciente.DataContrato}', '{registrarPaciente.Salario}', '{registrarPaciente.SenhaHash}', {idUser})");
+            if(registrarPaciente.CRM != null)
+            {
+                connection.Execute($"INSERT INTO medico VALUES ('{registrarPaciente.Especialidade}', '{registrarPaciente.CRM}', {idUser})");
+            }
+            return Ok(true);
+        }
+
         [HttpPost("registrarPaciente")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<string>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

@@ -44,13 +44,12 @@ function RegistrarFuncionario() {
       nome: funcionario.nome,
       email: funcionario.email,
       telefone: funcionario.telefone,
-      altura: funcionario.altura,
       salario: funcionario.salario,
       tipoSanguineo: funcionario.tipoSanguineo,
       senhaHash: funcionario.senhaHash,
       crm: funcionario.crm,
       especialidade: funcionario.especialidade,
-      dataInicio: startDate,
+      dataContrato: startDate,
     }
 
     if(request.cep !== '' && request.cidade !== '' && request.estado !== '' && request.bairro !== '' && request.logradouro !== '') {
@@ -67,9 +66,11 @@ function RegistrarFuncionario() {
           bairro: '',
           logradouro: '',
           salario: '',
-          altura: '',
           tipoSanguineo: '',
           senhaHash: '',
+          documento: '',
+          especilidade: '',
+          crm: '',
         })
       } else {
         alert("Ocorreu um erro ao salvar usuário, tente novamente mais tarde.")
@@ -147,7 +148,7 @@ function RegistrarFuncionario() {
           onChange={(event) => setFuncionario({...funcionario, salario: event.target.value})}
         />
         <FormControl style={{marginTop: '15px', width: '315px'}} >
-            <span>Selecione a data</span>
+            <span>Início de contrato de trabalho</span>
               <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
         </FormControl>
         <FormControl>
@@ -170,7 +171,7 @@ function RegistrarFuncionario() {
               onChange={(event) => setFuncionario({...funcionario, especialidade: event.target.value})}
             />
             <TextField
-              label="CRM"
+              label="Documento"
               value={funcionario.crm}
               style={{marginTop: '14px'}}
               onChange={(event) => setFuncionario({...funcionario, crm: event.target.value})}

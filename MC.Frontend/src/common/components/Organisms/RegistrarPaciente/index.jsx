@@ -25,45 +25,40 @@ function RegistrarPaciente() {
 
   const handleChangeRequest = async () => {
     const request = {
-      cep: paciente.cep ,
-      cidade: paciente.cidade ,
-      estado: paciente.estado ,
-      bairro: paciente.bairro ,
-      logradouro: paciente.logradouro ,
-      nome: paciente.nome,
-      email: paciente.email,
-      telefone: paciente.telefone,
       altura: paciente.altura,
+      bairro: paciente.bairro,
+      cep: paciente.cep,
+      cidade: paciente.cidade,
+      email: paciente.email,
+      estado: paciente.estado,
+      logradouro: paciente.logradouro,
+      nome: paciente.nome,
       peso: paciente.peso,
+      telefone: paciente.telefone,
       tipoSanguineo: paciente.tipoSanguineo,
-      senhaHash: paciente.senhaHash
     }
 
-    if(request.cep !== '' && request.cidade !== '' && request.estado !== '' && request.bairro !== '' && request.logradouro !== '') {
-      const data = await repository.registrarPaciente(request);
-      if(data) {
-        alert("Paciente registrado com sucesso");
-        setPaciente({
-          nome: '',
-          email: '',
-          telefone: '',
-          cep: '',
-          cidade: '',
-          estado: '',
-          bairro: '',
-          logradouro: '',
-          peso: '',
-          altura: '',
-          tipoSanguineo: '',
-          senhaHash: '',
-        })
-      } else {
-        alert("Ocorreu um erro ao salvar usuário, tente novamente mais tarde.")
-      }
+    const data = await repository.registrarFuncionario(request);
+    if(data) {
+      alert("Paciente registrado com sucesso");
+      setPaciente({
+        nome: '',
+        email: '',
+        telefone: '',
+        cep: '',
+        cidade: '',
+        estado: '',
+        bairro: '',
+        logradouro: '',
+        peso: '',
+        altura: '',
+        tipoSanguineo: '',
+        senhaHash: '',
+      })
     } else {
-      alert("Preencha todos os campos antes de continuar.")
+      alert("Ocorreu um erro ao salvar usuário, tente novamente mais tarde.")
     }
-  }
+}
 
   return (
     <>
@@ -83,12 +78,6 @@ function RegistrarPaciente() {
           style={{marginTop: '14px'}}
           value={paciente.email}
           onChange={(event) => setPaciente({...paciente, email: event.target.value})}
-        />
-        <TextField
-          label="Senha"
-          value={paciente.senhaHash}
-          style={{marginTop: '14px', marginRight: '15px'}}
-          onChange={(event) => setPaciente({...paciente, senhaHash: event.target.value})}
         />
         <TextField
           label="Telefone"
